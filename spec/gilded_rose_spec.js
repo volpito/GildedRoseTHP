@@ -40,4 +40,42 @@ describe("GildedRose shop manager", function () {
       expect(items[idx].sellIn).toBe(testCase.sellIn);
     });
   });
+
+
+  it("Dégrader la qualité 2x plus vite", function () {
+    listItems.push(new Item("Conjured Car Keys", 45, 34));
+    listItems.push(new Item("Conjured King Kong", 40, 30));
+
+    const gildedRose = new Shop(listItems);
+    const items = gildedRose.updateQuality();
+
+    var expected = [
+      { sellIn: 45, quality: 32 },
+      { sellIn: 39, quality: 28 },
+    ];
+    expected.forEach(function (testCase, idx) {
+      expect(items[idx].quality).toBe(testCase.quality);
+      expect(items[idx].sellIn).toBe(testCase.sellIn);
+    });
+  });
+
+
+  it("Ne change pas la qualité de l'objet", function () {
+    listItems.push(new Item("Sulfuras", 13, 80));
+    listItems.push(new Item("Sulfuras Bitch", 6, 80));
+
+    const gildedRose = new Shop(listItems);
+    const items = gildedRose.updateQuality();
+
+    var expected = [
+      { sellIn: 13, quality: 80 },
+      { sellIn: 6, quality: 80 }
+    ];
+    expected.forEach(function (testCase, idx) {
+      expect(items[idx].quality).toBe(testCase.quality);
+      expect(items[idx].sellIn).toBe(testCase.sellIn);
+    });
+  });
+
+
 });
